@@ -1,0 +1,16 @@
+/* Adopt form layout for default address model
+ * Extend templates billing-address-form.html and shipping-address-form.html and change content
+ * of block extra-styles to change these values.
+ */
+.shop-address-zip_code {
+  width: 35%;
+  display: inline-block;
+  padding-right: 10px; }
+  .shop-address-zip_code .djng-form-control-feedback {
+    padding-right: 10px; }
+
+.shop-address-city {
+  width: 65%;
+  display: inline-block;
+  padding-left: 10px; }
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0ZGluIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7R0FHRztBQUNIO0VBQ0UsV0FBVztFQUNYLHNCQUFzQjtFQUN0QixvQkFBb0IsRUFBRTtFQUN0QjtJQUNFLG9CQUFvQixFQUFFOztBQUUxQjtFQUNFLFdBQVc7RUFDWCxzQkFBc0I7RUFDdEIsbUJBQW1CLEVBQUUiLCJmaWxlIjoic3RkaW4iLCJzb3VyY2VzQ29udGVudCI6WyIvKiBBZG9wdCBmb3JtIGxheW91dCBmb3IgZGVmYXVsdCBhZGRyZXNzIG1vZGVsXG4gKiBFeHRlbmQgdGVtcGxhdGVzIGJpbGxpbmctYWRkcmVzcy1mb3JtLmh0bWwgYW5kIHNoaXBwaW5nLWFkZHJlc3MtZm9ybS5odG1sIGFuZCBjaGFuZ2UgY29udGVudFxuICogb2YgYmxvY2sgZXh0cmEtc3R5bGVzIHRvIGNoYW5nZSB0aGVzZSB2YWx1ZXMuXG4gKi9cbi5zaG9wLWFkZHJlc3MtemlwX2NvZGUge1xuICB3aWR0aDogMzUlO1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIHBhZGRpbmctcmlnaHQ6IDEwcHg7IH1cbiAgLnNob3AtYWRkcmVzcy16aXBfY29kZSAuZGpuZy1mb3JtLWNvbnRyb2wtZmVlZGJhY2sge1xuICAgIHBhZGRpbmctcmlnaHQ6IDEwcHg7IH1cblxuLnNob3AtYWRkcmVzcy1jaXR5IHtcbiAgd2lkdGg6IDY1JTtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICBwYWRkaW5nLWxlZnQ6IDEwcHg7IH1cblxuLyojIHNvdXJjZU1hcHBpbmdVUkw9Li4vLi4vLi4vLi4vLi4vLi4vLi4vLi4vc3RhdGljL3Nob3AvY3NzL2FkZHJlc3MuY3NzLm1hcCAqLyJdfQ== */

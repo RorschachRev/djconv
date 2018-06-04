@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "../../../home/alex/djstore/lib/python3.5/site-packages/shop_stripe/static/shop/css/stripe.css",
+	"sources": [
+		"../../../home/alex/djstore/lib/python3.5/site-packages/shop_stripe/static/shop/css/stripe.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAEQ,IAFJ,CAAA,AAAA,gBAAC,AAAA,EACD,qBAAqB,CACjB,WAAW,CAAC;EACR,KAAK,EAAE,GAAG,GAUb;EAbT,AAEQ,IAFJ,CAAA,AAAA,gBAAC,AAAA,EACD,qBAAqB,CACjB,WAAW,AAEP,YAAa,CAAC;IACV,aAAa,EAAE,IAAI,GACtB;EANb,AAEQ,IAFJ,CAAA,AAAA,gBAAC,AAAA,EACD,qBAAqB,CACjB,WAAW,AAKP,UAAY,CAAA,AAAA,CAAC,EAAE;IACX,YAAY,EAAE,IAAI,GACrB;EATb,AAUY,IAVR,CAAA,AAAA,gBAAC,AAAA,EACD,qBAAqB,CACjB,WAAW,CAQP,MAAM,CAAC;IACH,KAAK,EAAE,IAAI,GACd;;AAZb,AAeY,IAfR,CAAA,AAAA,gBAAC,AAAA,EACD,qBAAqB,CAajB,YAAY,CACR,WAAW,CAAC;EACR,OAAO,EAAE,YAAY,GACxB"
+}

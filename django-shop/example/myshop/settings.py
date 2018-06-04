@@ -67,7 +67,7 @@ USE_THOUSAND_SEPARATOR = True
 
 # replace django.contrib.auth.models.User by implementation
 # allowing to login via email address
-AUTH_USER_MODEL = 'email_auth.User'
+#AUTH_USER_MODEL = 'email_auth.User'
 
 AUTH_PASSWORD_VALIDATORS = [{
     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',

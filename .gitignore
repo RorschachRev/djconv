@@ -93,7 +93,6 @@ share/
 pip-selfcheck.json
 
 #django
-manage.py
 db.sqlite3
 
 # Spyder project settings
@@ -111,5 +110,4 @@ db.sqlite3
 pyvenv.cfg
 lib64
 nohup.out
-ian
 

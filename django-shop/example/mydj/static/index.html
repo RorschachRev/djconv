@@ -40,25 +40,197 @@
 <body>
     <canvas id="renderCanvas"></canvas>
     <script>
+		var meshTask, boothTask, posKeeper;
         var canvas = document.getElementById("renderCanvas");
         var engine = new BABYLON.Engine(canvas, true);
 
+		//You can assume anything not commented on is default code from the assetManager sample.
         var createScene = function () {
             var scene = new BABYLON.Scene(engine);
         
             //Adding a light
             var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(20, 20, 100), scene);
+			light.intensity = 0.8;
+			
+			//Adding gravity
+			scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
         
-            //Adding an Arc Rotate Camera
-            var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0.8, 100, BABYLON.Vector3.Zero(), scene);
-            camera.attachControl(canvas, false);
+            //Universal Camera with default controls
+			//TODO: Make the controls WASD instead of arrow keys because who uses arrow keys?
+			var camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 0.5, 10), scene);
+			camera.setTarget(new BABYLON.Vector3(0, 0, 180));
+            camera.attachControl(canvas, true);
+			camera.speed = 0.5;
+			
+			var light2 = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 60, 100), scene);
+			light2.diffuse = new BABYLON.Color3(1, 1, 0.9);
+			light2.specular = new BABYLON.Color3(0, 0, 0.3);
+			light2.intensity = 0.6;
+			
+			var light3 = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(-10, 60, 100), scene);
+			light3.diffuse = new BABYLON.Color3(1, 1, 0.9);
+			light3.specular = new BABYLON.Color3(0, 0, 0.3);
+			light3.intensity = 0.6;
+			
+			//camera.checkCollisions = true;
+			//camera.applyGravity = true;
+			//camera.ellipsoid = new BABYLON.Vector3(1,1,1);
+			//scene.collisionsEnabled = true;
+			
+			//Skybox provided by Spiney on OpenGameArt.org
+			var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
+			var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+			skyboxMaterial.backFaceCulling = false;
+			skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("resources/textures/bluecloud", scene);
+			skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+			skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+			skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+			skybox.material = skyboxMaterial;
         
             var assetsManager = new BABYLON.AssetsManager(scene);
-        	var meshTask = assetsManager.addMeshTask("skull task", "", "resources/", "fullConvention.babylon");
+        	meshTask = assetsManager.addMeshTask("building task", "", "resources/", "conventionHall.babylon");
+			boothTask = assetsManager.addMeshTask("booth task", "", "resources/", "updatedBooth.obj");
         	
         	meshTask.onSuccess = function (task) {
         	    task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
-        	}	
+				//task.loadedMeshes[0].checkCollisions = true;
+        	}
+			
+			//IMPORTANT: If you change the x value in the loaded mesh, posKeeper needs to match that number!
+			//TODO: Once this code works... make it better.
+        	boothTask.onSuccess = function (task) {
+				
+				task.loadedMeshes[1].position = new BABYLON.Vector3(-92, -1.27, 71.8);
+				posKeeper = -92;
+				var newBooth = task.loadedMeshes[1];
+				
+				//making the booth face the right direction
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				//Generating the instances of the booths.
+				//LEFT SIDE FIRST ROW (Starting from the right)
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 71.8);
+					
+				}
+				//LEFT SIDE SECOND ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 5);
+				
+				//flipping the direction of the booth for these instances
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 55);
+				for (var i = 0; i <= 4; i++) {
+					//TODO: fix this or there will be two 5 indexes. Idk if the index matters too much, but accuracy is nice.
+					newBooth.createInstance("i" + i+5);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 55);
+				}
+				
+				//LEFT SIDE THIRD ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 10);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 48);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+10);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 48);
+				}
+				
+				//LEFT SIDE FOURTH ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 15);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 30.2);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+15);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 30.2);
+				}
+				
+				//LEFT SIDE FIFTH ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 20);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 23.2);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+20);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 23.2);
+				}
+				
+				//LEFT SIDE SIXTH ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 25);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 6.35);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+25);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 6.35);
+				}
+				
+				
+				
+				//RIGHT SIDE FIRST ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 30);
+				
+				//flipping the direction of the booth for these instances
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 71.8);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i + 30);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 71.8);
+					
+				}
+				//RIGHT SIDE SECOND ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 35);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 55);
+				for (var i = 0; i <= 4; i++) {
+					//TODO: fix this or there will be two 5 indexes. Idk if the index matters too much, but accuracy is nice.
+					newBooth.createInstance("i" + i+35);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 55);
+				}
+				
+				//RIGHT SIDE THIRD ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 40);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 48);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+40);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 48);
+				}
+				
+				//RIGHT SIDE FOURTH ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 45);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 30.2);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+45);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 30.2);
+				}
+				
+				//RIGHT SIDE FIFTH ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 50);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 23.2);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+50);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 23.2);
+				}
+				
+				//RIGHT SIDE SIXTH ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 55);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 6.35);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+55);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 6.35);
+				}
+        	}
         
             // Move the light with the camera
             scene.registerBeforeRender(function () {

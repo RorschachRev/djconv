@@ -4,7 +4,7 @@
 	"sources": [
 		"../../../home/alex/djstore/django-shop/example/myshop/static/myshop/css/navbar.scss",
 		"../../../home/alex/djstore/django-shop/example/myshop/static/myshop/css/_variables.scss",
-		"../../../home/alex/djstore/django-shop/shop/static/shop/css/_variables.scss",
+		"../../../home/alex/djstore/django-shop/example/shop/static/shop/css/_variables.scss",
 		"../../../home/alex/djstore/django-shop/example/node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss"
 	],
 	"names": [],

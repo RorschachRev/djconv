@@ -674,7 +674,7 @@ SHOP_STRIPE = {
 
 # Paypal settings
 SHOP_PAYPAL = {
-    'API_ENDPOINT': '',
+    'API_ENDPOINT': 'A21AAE0FCQxsSTXvXBIRp0OyM-eiWC4JKdplArAcY1LITX0u0elI_viq3gwOCLrzQMimtsyFQ1fu16PpaQvjWPJGgnfve76gg',
     'MODE': 'sandbox',
     'CLIENT_ID': 'AVMUBvP0utkG4U3kzujaAqrTb46jqWaFsBRuyDEC97zudKz1M1v8cviWeP3G1RMwQJiME0YiG8wO_sr5',
     'CLIENT_SECRET': 'EDGuhQ7O2EMus84v_ViGClpmBo-aslO9TnKwDQslMwFwMow_BNCLgnKwaDZokRcuT5gn00WUXcIy3uz8',

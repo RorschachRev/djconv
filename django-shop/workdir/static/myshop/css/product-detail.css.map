@@ -3,8 +3,8 @@
 	"file": "../../../home/alex/djstore/django-shop/example/myshop/static/myshop/css/product-detail.css",
 	"sources": [
 		"../../../home/alex/djstore/django-shop/example/myshop/static/myshop/css/product-detail.scss",
-		"../../../home/alex/djstore/django-shop/shop/static/shop/css/_django-shop.scss",
-		"../../../home/alex/djstore/django-shop/shop/static/shop/css/_variables.scss",
+		"../../../home/alex/djstore/django-shop/example/shop/static/shop/css/_django-shop.scss",
+		"../../../home/alex/djstore/django-shop/example/shop/static/shop/css/_variables.scss",
 		"../../../home/alex/djstore/django-shop/example/node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss",
 		"../../../home/alex/djstore/django-shop/example/node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss",
 		"../../../home/alex/djstore/django-shop/example/node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss",
@@ -89,7 +89,7 @@
 		"../../../home/alex/djstore/django-shop/example/node_modules/font-awesome/scss/_stacked.scss",
 		"../../../home/alex/djstore/django-shop/example/node_modules/font-awesome/scss/_icons.scss",
 		"../../../home/alex/djstore/django-shop/example/node_modules/font-awesome/scss/_screen-reader.scss",
-		"../../../home/alex/djstore/django-shop/shop/static/shop/css/_django-angular.scss",
+		"../../../home/alex/djstore/django-shop/example/shop/static/shop/css/_django-angular.scss",
 		"../../../home/alex/djstore/django-shop/example/myshop/static/myshop/css/_footer.scss",
 		"../../../home/alex/djstore/django-shop/example/myshop/static/myshop/css/_variables.scss"
 	],

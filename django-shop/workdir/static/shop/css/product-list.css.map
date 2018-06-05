@@ -1,10 +1,10 @@
 {
 	"version": 3,
-	"file": "../../../home/alex/djstore/django-shop/shop/static/shop/css/product-list.css",
+	"file": "../../../home/alex/djstore/django-shop/example/shop/static/shop/css/product-list.css",
 	"sources": [
-		"../../../home/alex/djstore/django-shop/shop/static/shop/css/product-list.scss",
-		"../../../home/alex/djstore/django-shop/shop/static/shop/css/_product-figure.scss",
-		"../../../home/alex/djstore/django-shop/shop/static/shop/css/_variables.scss",
+		"../../../home/alex/djstore/django-shop/example/shop/static/shop/css/product-list.scss",
+		"../../../home/alex/djstore/django-shop/example/shop/static/shop/css/_product-figure.scss",
+		"../../../home/alex/djstore/django-shop/example/shop/static/shop/css/_variables.scss",
 		"../../../home/alex/djstore/django-shop/example/node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss"
 	],
 	"names": [],

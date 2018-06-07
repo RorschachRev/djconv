@@ -46,7 +46,7 @@ ADMINS = (("The Merchant", 'the.merchant@example.com'),)
 SECRET_KEY = 'nqniwbt=%@5a(e8%&h#c^0()64(ujs0=4%_nyajn*t6a$ca&at'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DJANGO_DEBUG'))
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -230,10 +230,9 @@ USE_X_FORWARDED_HOST = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(WORK_DIR, SHOP_TUTORIAL, 'media')
+MEDIA_ROOT = '/home/ian/djstore/django-shop/workdir/polymorphic/media/'
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = '/media/'
 
@@ -283,7 +282,8 @@ TEMPLATES = [{
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-REDIS_HOST = os.getenv('REDIS_HOST')
+#REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_HOST = 'localhost'
 
 if REDIS_HOST:
     SESSION_ENGINE = 'redis_sessions.session'
@@ -292,6 +292,7 @@ if REDIS_HOST:
     SESSION_REDIS = {
         'host': REDIS_HOST,
         'port': 6379,
+        'password': '',
         'db': 0,
         'prefix': 'session-{}'.format(SHOP_TUTORIAL),
         'socket_timeout': 1
@@ -308,20 +309,22 @@ if REDIS_HOST:
             'BACKEND': 'redis_cache.RedisCache',
             'LOCATION': 'redis://{}:6379/1'.format(REDIS_HOST),
              "OPTIONS": {
-                 "PICKLE_VERSION": PICKLE_V,                                                                                                
-}
+                 "PICKLE_VERSION": PICKLE_V, 
+		}
         },
         'compressor': {
             'BACKEND': 'redis_cache.RedisCache',
             'LOCATION': 'redis://{}:6379/2'.format(REDIS_HOST),
         },
-        'select2': {
-            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        },
+        #'default': {
+        #    'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        #},
     }
 
     CACHE_MIDDLEWARE_ALIAS = 'default'
     CACHE_MIDDLEWARE_SECONDS = 3600
+    CACHE_MIDDLEWARE_KEY_PREFIX = 'myshop-cache'
+
 
 LOGGING = {
     'version': 1,

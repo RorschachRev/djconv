@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
        <!--Remember to authorize .babylon and .babylonmeshdata MIME types within the web server! -->
-        <title>Loader Test</title>
+        <title>Loader Test FUFUFUUF</title>
 
         <!-- Babylon.js -->
         <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
@@ -57,7 +57,7 @@
         
             //Universal Camera with default controls
 			//TODO: Make the controls WASD instead of arrow keys because who uses arrow keys?
-			var camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 0.5, 10), scene);
+			var camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 1.25, -10), scene);
 			camera.setTarget(new BABYLON.Vector3(0, 0, 180));
             camera.attachControl(canvas, true);
 			camera.speed = 0.5;
@@ -72,11 +72,45 @@
 			light3.specular = new BABYLON.Color3(0, 0, 0.3);
 			light3.intensity = 0.6;
 			
-			//camera.checkCollisions = true;
-			//camera.applyGravity = true;
-			//camera.ellipsoid = new BABYLON.Vector3(1,1,1);
-			//scene.collisionsEnabled = true;
-			
+			//~ scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+			//~ camera.applyGravity = true;
+			//~ camera.ellipsoid = new BABYLON.Vector3(1,1,1);
+			//~ scene.collisionsEnabled = true;
+			//~ camera.checkCollisions = true;
+			//~ var ground = BABYLON.Mesh.CreatePlane("ground", 20.0, scene);
+			//~ ground.checkCollisions = true;
+    //Ground
+    var ground = BABYLON.Mesh.CreatePlane("ground", 2000.0, scene);
+    ground.material = new BABYLON.StandardMaterial("groundMat", scene);
+    ground.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+    ground.material.backFaceCulling = false;
+    ground.position = new BABYLON.Vector3(5, -1.29, -10);
+    ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
+
+    //Simple crate	//Need to add collisions to booths too!!
+    var box = BABYLON.Mesh.CreateBox("crate", 2, scene);
+    box.material = new BABYLON.StandardMaterial("Mat", scene);
+    box.material.diffuseTexture = new BABYLON.Texture("textures/crate.png", scene);
+    box.material.diffuseTexture.hasAlpha = true;
+    box.position = new BABYLON.Vector3(5, -1, -10);
+
+    //Set gravity for the scene (G force like, on Y-axis)
+    scene.gravity = new BABYLON.Vector3(0, -0.5, 0);
+
+    // Enable Collisions
+    scene.collisionsEnabled = true;
+
+    //Then apply collisions and gravity to the active camera
+    camera.checkCollisions = true;
+    camera.applyGravity = true;
+
+    //Set the ellipsoid around the camera (e.g. your player's size)
+    camera.ellipsoid = new BABYLON.Vector3(1, 1.25, 1);
+
+    //finally, say which mesh will be collisionable
+    ground.checkCollisions = true;
+    box.checkCollisions = true;
+    
 			//Skybox provided by Spiney on OpenGameArt.org
 			var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
 			var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
@@ -92,8 +126,8 @@
 			boothTask = assetsManager.addMeshTask("booth task", "", "resources/", "updatedBooth.obj");
         	
         	meshTask.onSuccess = function (task) {
-        	    task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
-				//task.loadedMeshes[0].checkCollisions = true;
+			task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
+			//task.loadedMeshes[0].checkCollisions = true;
         	}
 			
 			//IMPORTANT: If you change the x value in the loaded mesh, posKeeper needs to match that number!
@@ -236,6 +270,23 @@
             scene.registerBeforeRender(function () {
                 light.position = camera.position;
             });
+	        scene.executeWhenReady(function () {
+	            //canvas.style.opacity = 1;
+	            if (camera) {
+		                camera.attachControl(canvas);
+
+		                if (camera.keysUp) {
+		                    camera.keysUp.push(90); // Z
+		                    camera.keysUp.push(87); // W
+		                    camera.keysDown.push(83); // S
+		                    camera.keysLeft.push(65); // A
+		                    camera.keysLeft.push(81); // Q
+		                    camera.keysRight.push(69); // E
+		                    camera.keysRight.push(68); // D
+		                }
+
+}
+	        	});
         	
         	assetsManager.onFinish = function (tasks) {
         		engine.runRenderLoop(function () {

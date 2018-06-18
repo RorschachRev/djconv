@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 """
 Django settings for myshop project.
@@ -46,7 +46,7 @@ ADMINS = (("The Merchant", 'the.merchant@example.com'),)
 SECRET_KEY = 'nqniwbt=%@5a(e8%&h#c^0()64(ujs0=4%_nyajn*t6a$ca&at'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -230,7 +230,7 @@ USE_X_FORWARDED_HOST = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/ian/djstore/django-shop/workdir/polymorphic/media/'
+MEDIA_ROOT = '/home/gerald/djstore/django-shop/workdir/polymorphic/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
@@ -281,6 +281,7 @@ TEMPLATES = [{
 }]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+APPEND_SLASH= False
 
 #REDIS_HOST = os.getenv('REDIS_HOST')
 REDIS_HOST = 'localhost'
@@ -305,20 +306,20 @@ if REDIS_HOST:
         PICKLE_V=2
 
     CACHES = {
-        'default': {
-            'BACKEND': 'redis_cache.RedisCache',
-            'LOCATION': 'redis://{}:6379/1'.format(REDIS_HOST),
-             "OPTIONS": {
-                 "PICKLE_VERSION": PICKLE_V, 
-		}
-        },
+        #'default': {
+            #'BACKEND': 'redis_cache.RedisCache',
+            #'LOCATION': 'redis://{}:6379/1'.format(REDIS_HOST),
+             #"OPTIONS": {
+                 #"PICKLE_VERSION": PICKLE_V, 
+		#}
+        #},
         'compressor': {
             'BACKEND': 'redis_cache.RedisCache',
             'LOCATION': 'redis://{}:6379/2'.format(REDIS_HOST),
         },
-        #'default': {
-        #    'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        #},
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        },
     }
 
     CACHE_MIDDLEWARE_ALIAS = 'default'

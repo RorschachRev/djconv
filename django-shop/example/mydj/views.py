@@ -20,10 +20,26 @@ def signup(request):
 		form = UserCreationForm()
 		return render(request, 'pages/signup.html', { 'form': form })
 
+# MODELS and OBJECTS from alex and Caitlyn go here  
+class BlankClass():
+	def __init__(self):
+		self.existence=True
+
 def expo(request):
-	expo=""
+	allbooths=[]
+	for a in range(3): #update with number of booths
+		allbooths.append(BlankClass())
+	allbooths[0].texture="notpretty.jpg"
+	allbooths[0].visibility = False
+	allbooths[0].collisions = False
+	allbooths[1].texture="pretty.jpg"
+	allbooths[1].visibility = True
+	allbooths[1].collisions = True
+	allbooths[2].texture="stone.jpg"
+	allbooths[2].visibility = True
+	allbooths[2].collisions = True
 	expomap=''
-	return render(request,'pages/expo.html', { 'expo':expo, 'map':expomap  } )
+	return render(request,'pages/expo.html', { 'expo':allbooths, 'map':expomap  } )
 	
 def index(request):
 	return render(request,'pages/index.html', { 'index':index } )

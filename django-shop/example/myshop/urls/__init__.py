@@ -13,6 +13,7 @@ from cms.sitemaps import CMSSitemap
 from myshop.sitemap import ProductSitemap
 from mydj import views
 from django.contrib.auth import views as auth_views
+from mydj import urls
 
 sitemaps = {'cmspages': CMSSitemap,
             'products': ProductSitemap}
@@ -29,21 +30,21 @@ i18n_urls = (
         name='password_reset_confirm'),
     url(r'^', include('cms.urls')),
 )
-urlpatterns = [
+urlpatterns = urls.urlpatterns +[
     url(r'^robots\.txt$', render_robots),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     url(r'^shop/', include('shop.urls', namespace='shop')),
     url(r'^$',  views.index, name='base'),
-    url(r'^index.html$', views.index, name='index'),
-    url(r'^login/$', auth_views.login, {'template_name': 'pages/login.html'}, name='login'),
-    url(r'^logout/$', auth_views.logout, {'template_name': 'pages/logout.html'}, name='logout'),
-    url(r'^expo.html$', views.expo, name='expo'),
-    url(r'^profile.html$', views.update_profile, name='profile'),
-    url(r'^shop.html$', views.shop, name='shop'),
-    url(r'^expomap.html$', views.expomap, name='expomap'),
-    url(r'^edit.html$', views.edit, name='edit'),
+ #   url(r'^index.html$', views.index, name='index'),
+   # url(r'^login/$', auth_views.login, {'template_name': 'pages/login.html'}, name='login'),
+  #  url(r'^logout/$', auth_views.logout, {'template_name': 'pages/logout.html'}, name='logout'),
+   # url(r'^expo.html$', views.expo, name='expo'),
+   # url(r'^profile.html$', views.update_profile, name='profile'),
+   # url(r'^shop.html$', views.shop, name='shop'),
+   # url(r'^expomap.html$', views.expomap, name='expomap'),
+  #  url(r'^edit.html$', views.edit, name='edit'),
     #url(r'^admin/', admin.site.urls),
-    url(r'^signup.html$', views.signup, name='signup'),
+    #url(r'^signup.html$', views.signup, name='signup'),
 ]
 if settings.USE_I18N:
     urlpatterns.extend(i18n_patterns(*i18n_urls))

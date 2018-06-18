@@ -20,6 +20,20 @@ def signup(request):
 		form = UserCreationForm()
 		return render(request, 'pages/signup.html', { 'form': form })
 
+def attendeesignup(request):
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			raw_password = form.cleaned_data.get('password1')
+			user = authenticate(username=username, password=raw_password)
+			login(request, user)
+			return HttpResponseRedirect('profile.html')
+	else:
+		form = UserCreationForm()
+		return render(request, 'pages/attendee-signup.html', { 'form': form })
+
 # MODELS and OBJECTS from alex and Caitlyn go here  
 class BlankClass():
 	def __init__(self):

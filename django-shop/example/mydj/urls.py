@@ -31,7 +31,9 @@ urlpatterns = [
     url(r'^shop.html$', views.shop, name='shop'),
     url(r'^expomap.html$', views.expomap, name='expomap'),
     url(r'^edit.html$', views.edit, name='edit'),
-    url(r'^admin/', admin.site.urls),
+
     url(r'^signup.html$', views.signup, name='signup'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^attendee-signup.html$', views.attendeesignup, name='attendeesignup'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

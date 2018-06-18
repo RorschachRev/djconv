@@ -20,7 +20,7 @@
                                 <a class="nav-link" href="/index.html#about">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/static/index.html">Expo</a>
+                                <a class="nav-link" href="/expo.html">Expo</a>
                             </li>
 			    <li class="nav-item">
                                 <a href="/shop/">Shop</a>
@@ -35,8 +35,12 @@
                                 <a class="nav-link" href="/logout/">Logout</a>
                             </li>                            
                             {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/signup.html">Sign Up</a>
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sign Up<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/signup.html">Exhibitors</a></li>
+                                    <li><a href="/attendee-signup.html">Attendees</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/login/">Login</a>

@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
        <!--Remember to authorize .babylon and .babylonmeshdata MIME types within the web server! -->
-        <title>Loader Test FUFUFUUF</title>
+        <title>Inventor Trade Show 3D</title>
 
         <!-- Babylon.js -->
         <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
@@ -143,60 +143,59 @@
 				//Generating the instances of the booths.
 				//LEFT SIDE FIRST ROW (Starting from the right)
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i);
+					newBooth.createInstance("i" + i+2);
 					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 71.8);
 					
 				}
 				//LEFT SIDE SECOND ROW
 				posKeeper = -92;
-				newBooth.createInstance("i" + 5);
+				newBooth.createInstance("i" + 7);
 				
 				//flipping the direction of the booth for these instances
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 55);
 				for (var i = 0; i <= 4; i++) {
-					//TODO: fix this or there will be two 5 indexes. Idk if the index matters too much, but accuracy is nice.
-					newBooth.createInstance("i" + i+5);
+					newBooth.createInstance("i" + i+8);
 					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 55);
 				}
 				
 				//LEFT SIDE THIRD ROW
 				posKeeper = -92;
-				newBooth.createInstance("i" + 10);
+				newBooth.createInstance("i" + 13);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 48);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i+10);
+					newBooth.createInstance("i" + i+14);
 					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 48);
 				}
 				
 				//LEFT SIDE FOURTH ROW
 				posKeeper = -92;
-				newBooth.createInstance("i" + 15);
+				newBooth.createInstance("i" + 19);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 30.2);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i+15);
+					newBooth.createInstance("i" + i+20);
 					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 30.2);
 				}
 				
 				//LEFT SIDE FIFTH ROW
 				posKeeper = -92;
-				newBooth.createInstance("i" + 20);
+				newBooth.createInstance("i" + 25);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 23.2);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i+20);
+					newBooth.createInstance("i" + i+26);
 					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 23.2);
 				}
 				
 				//LEFT SIDE SIXTH ROW
 				posKeeper = -92;
-				newBooth.createInstance("i" + 25);
+				newBooth.createInstance("i" + 31);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 6.35);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i+25);
+					newBooth.createInstance("i" + i+32);
 					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 6.35);
 				}
 				
@@ -204,66 +203,87 @@
 				
 				//RIGHT SIDE FIRST ROW
 				posKeeper = 92;
-				newBooth.createInstance("i" + 30);
+				newBooth.createInstance("i" + 37);
 				
 				//flipping the direction of the booth for these instances
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 71.8);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i + 30);
+					newBooth.createInstance("i" + i + 38);
 					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 71.8);
 					
 				}
 				//RIGHT SIDE SECOND ROW
 				posKeeper = 92;
-				newBooth.createInstance("i" + 35);
+				newBooth.createInstance("i" + 43);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 55);
 				for (var i = 0; i <= 4; i++) {
 					//TODO: fix this or there will be two 5 indexes. Idk if the index matters too much, but accuracy is nice.
-					newBooth.createInstance("i" + i+35);
+					newBooth.createInstance("i" + i+44);
 					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 55);
 				}
 				
 				//RIGHT SIDE THIRD ROW
 				posKeeper = 92;
-				newBooth.createInstance("i" + 40);
+				newBooth.createInstance("i" + 49);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 48);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i+40);
+					newBooth.createInstance("i" + i+50);
 					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 48);
 				}
 				
 				//RIGHT SIDE FOURTH ROW
 				posKeeper = 92;
-				newBooth.createInstance("i" + 45);
+				newBooth.createInstance("i" + 55);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 30.2);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i+45);
+					newBooth.createInstance("i" + i+56);
 					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 30.2);
 				}
 				
 				//RIGHT SIDE FIFTH ROW
 				posKeeper = 92;
-				newBooth.createInstance("i" + 50);
+				newBooth.createInstance("i" + 61);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 23.2);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i+50);
+					newBooth.createInstance("i" + i+62);
 					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 23.2);
 				}
 				
 				//RIGHT SIDE SIXTH ROW
 				posKeeper = 92;
-				newBooth.createInstance("i" + 55);
+				newBooth.createInstance("i" + 67);
 				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
 				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 6.35);
 				for (var i = 0; i <= 4; i++) {
-					newBooth.createInstance("i" + i+55);
+					newBooth.createInstance("i" + i+68);
 					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 6.35);
 				}
+
+				newBooth.checkCollisions = true;
+				for (var i = 0; i <= 72; i++) {
+					newBooth.instances[i].checkCollisions = true;
+					//The following commented lines do work:
+					//checkCollisions must be set to false for every nonvisible booth.
+					//newBooth.instances[0].isVisible = false;
+					//newBooth.instances[0].checkCollisions = false;
+					
+					//What I presume it'll be similar to:
+					//newBooth.instances[i].isVisible = {{booths.i.visibility}};
+					//newBooth.instances[i].texture = {{ expo.booth1texture }};
+					//newBooth.instances[i].checkCollisions = {{booths."B" + (i+1).collisions}};
+					//etc. I'm not entirely sure how django data importing and the JSON stuff works though, so it probably isn't that simple.
+					
+				}
+				//What Ian wrote to rewrite syntax into something that works, this is an idea!:
+				//B1.visibility = {{booths.B1.visibility}}
+				//B1.texture= {{booths.B1.texture}}
+				//B2.visibility ={{}}
+				//B2.texture = {{}}
         	}
         
             // Move the light with the camera

@@ -78,6 +78,17 @@
 
 /* Fonts families end*/
 
+/***************Beginning of MODS by Gerald, 2018 ***************/
+
+.section-header {
+    background: url('../img/expo-enter.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    backface-visibility: hidden;
+    height: 100vh;
+}
+
 .event-sponsor {
     background-image: url('/static/img/background-images/blackboard.jpg');
     background-position: center;
@@ -102,15 +113,16 @@
     filter: alpha(opacity=90);
 }
 .round-bg {
-    margin-top: 150px; 
+    margin-top: 200px; 
+    margin-bottom: 100px;
     background-color: #434547;
     border-radius: 5px; 
-    padding: 3px 8px 8px 3px;
+    padding: 1px 1px 40px 1px;
     opacity: 0.85;
     background-blend-mode: darken; 
 }
 
-/***************Beginning of MODS by Gerald, 2018.05.28 ***************/
+
 
 /*
 * Font Family
@@ -342,6 +354,7 @@ a:hover {
 .title-modern {
     font-family: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 200;
+    
 }
 
 .text-gray {
@@ -511,6 +524,7 @@ body > .navbar-collapse a {
 
 .info-icon {
     text-align: center;
+    justify-content: center;
 }
 
 .info-icon .icon {
@@ -893,7 +907,7 @@ a,
 .btn-white,
 .navbar .navbar-nav > li > a.btn-white {
     border-color: #FFFFFF;
-    color: #FFFFFF;
+    color: #333333;
     opacity: .9;
 }
 
@@ -912,8 +926,8 @@ a,
 .navbar .navbar-nav > li > a.btn-white.active, .open >
 .navbar .navbar-nav > li > a.btn-white.dropdown-toggle {
     background-color: transparent;
-    color: #FFFFFF;
-    border-color: #FFFFFF;
+    color: black;
+    border-color: #333333;
 }
 
 .btn-white:disabled, .btn-white[disabled], .btn-white.disabled,
@@ -2383,14 +2397,7 @@ a,
 .card-plain .image-header {
     border-radius: 4px;
 }
-.section-header {
-    background: url('../images/header-bg.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    backface-visibility: hidden;
-    height: 100vh;
-}
+
 .section-header,
 .section-header-blog,
 .section-presentation-page {

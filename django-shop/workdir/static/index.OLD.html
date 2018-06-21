@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+       <!--Remember to authorize .babylon and .babylonmeshdata MIME types within the web server! -->
+        <title>Inventor Trade Show 3D</title>
+
+        <!-- Babylon.js -->
+        <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+        <script src="https://preview.babylonjs.com/cannon.js"></script>
+        <script src="https://preview.babylonjs.com/Oimo.js"></script>
+        <script src="https://preview.babylonjs.com/earcut.min.js"></script>
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+        <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+        <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+		var meshTask, boothTask, posKeeper;
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+		//You can assume anything not commented on is default code from the assetManager sample.
+        var createScene = function () {
+            var scene = new BABYLON.Scene(engine);
+        
+            //Adding a light
+            var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(20, 20, 100), scene);
+			light.intensity = 0.8;
+			
+			//Adding gravity
+			scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+        
+            //Universal Camera with default controls
+			//TODO: Make the controls WASD instead of arrow keys because who uses arrow keys?
+			var camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 1.25, -10), scene);
+			camera.setTarget(new BABYLON.Vector3(0, 0, 180));
+            camera.attachControl(canvas, true);
+			camera.speed = 0.5;
+			
+			var light2 = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 60, 100), scene);
+			light2.diffuse = new BABYLON.Color3(1, 1, 0.9);
+			light2.specular = new BABYLON.Color3(0, 0, 0.3);
+			light2.intensity = 0.6;
+			
+			var light3 = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(-10, 60, 100), scene);
+			light3.diffuse = new BABYLON.Color3(1, 1, 0.9);
+			light3.specular = new BABYLON.Color3(0, 0, 0.3);
+			light3.intensity = 0.6;
+			
+			//~ scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+			//~ camera.applyGravity = true;
+			//~ camera.ellipsoid = new BABYLON.Vector3(1,1,1);
+			//~ scene.collisionsEnabled = true;
+			//~ camera.checkCollisions = true;
+			//~ var ground = BABYLON.Mesh.CreatePlane("ground", 20.0, scene);
+			//~ ground.checkCollisions = true;
+    //Ground
+    var ground = BABYLON.Mesh.CreatePlane("ground", 2000.0, scene);
+    ground.material = new BABYLON.StandardMaterial("groundMat", scene);
+    ground.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+    ground.material.backFaceCulling = false;
+    ground.position = new BABYLON.Vector3(5, -1.29, -10);
+    ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
+
+    //Simple crate	//Need to add collisions to booths too!!
+    var box = BABYLON.Mesh.CreateBox("crate", 2, scene);
+    box.material = new BABYLON.StandardMaterial("Mat", scene);
+    box.material.diffuseTexture = new BABYLON.Texture("textures/crate.png", scene);
+    box.material.diffuseTexture.hasAlpha = true;
+    box.position = new BABYLON.Vector3(5, -1, -10);
+
+    //Set gravity for the scene (G force like, on Y-axis)
+    scene.gravity = new BABYLON.Vector3(0, -0.5, 0);
+
+    // Enable Collisions
+    scene.collisionsEnabled = true;
+
+    //Then apply collisions and gravity to the active camera
+    camera.checkCollisions = true;
+    camera.applyGravity = true;
+
+    //Set the ellipsoid around the camera (e.g. your player's size)
+    camera.ellipsoid = new BABYLON.Vector3(1, 1.25, 1);
+
+    //finally, say which mesh will be collisionable
+    ground.checkCollisions = true;
+    box.checkCollisions = true;
+    
+			//Skybox provided by Spiney on OpenGameArt.org
+			var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
+			var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+			skyboxMaterial.backFaceCulling = false;
+			skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("resources/textures/bluecloud", scene);
+			skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+			skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+			skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+			skybox.material = skyboxMaterial;
+        
+            var assetsManager = new BABYLON.AssetsManager(scene);
+        	meshTask = assetsManager.addMeshTask("building task", "", "resources/", "conventionHall.babylon");
+			boothTask = assetsManager.addMeshTask("booth task", "", "resources/", "updatedBooth.obj");
+        	
+        	meshTask.onSuccess = function (task) {
+			task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
+			//task.loadedMeshes[0].checkCollisions = true;
+        	}
+			
+			//IMPORTANT: If you change the x value in the loaded mesh, posKeeper needs to match that number!
+			//TODO: Once this code works... make it better.
+        	boothTask.onSuccess = function (task) {
+				
+				task.loadedMeshes[1].position = new BABYLON.Vector3(-92, -1.27, 71.8);
+				posKeeper = -92;
+				var newBooth = task.loadedMeshes[1];
+				
+				//making the booth face the right direction
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				//Generating the instances of the booths.
+				//LEFT SIDE FIRST ROW (Starting from the right)
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+2);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 71.8);
+					
+				}
+				//LEFT SIDE SECOND ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 7);
+				
+				//flipping the direction of the booth for these instances
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 55);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+8);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 55);
+				}
+				
+				//LEFT SIDE THIRD ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 13);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 48);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+14);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 48);
+				}
+				
+				//LEFT SIDE FOURTH ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 19);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 30.2);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+20);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 30.2);
+				}
+				
+				//LEFT SIDE FIFTH ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 25);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 23.2);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+26);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 23.2);
+				}
+				
+				//LEFT SIDE SIXTH ROW
+				posKeeper = -92;
+				newBooth.createInstance("i" + 31);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 6.35);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+32);
+					newBooth.position = new BABYLON.Vector3(posKeeper += 12, -1.27, 6.35);
+				}
+				
+				
+				
+				//RIGHT SIDE FIRST ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 37);
+				
+				//flipping the direction of the booth for these instances
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 71.8);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i + 38);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 71.8);
+					
+				}
+				//RIGHT SIDE SECOND ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 43);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 55);
+				for (var i = 0; i <= 4; i++) {
+					//TODO: fix this or there will be two 5 indexes. Idk if the index matters too much, but accuracy is nice.
+					newBooth.createInstance("i" + i+44);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 55);
+				}
+				
+				//RIGHT SIDE THIRD ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 49);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 48);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+50);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 48);
+				}
+				
+				//RIGHT SIDE FOURTH ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 55);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 30.2);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+56);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 30.2);
+				}
+				
+				//RIGHT SIDE FIFTH ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 61);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 23.2);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+62);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 23.2);
+				}
+				
+				//RIGHT SIDE SIXTH ROW
+				posKeeper = 92;
+				newBooth.createInstance("i" + 67);
+				newBooth.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
+				newBooth.position = new BABYLON.Vector3(posKeeper, -1.27, 6.35);
+				for (var i = 0; i <= 4; i++) {
+					newBooth.createInstance("i" + i+68);
+					newBooth.position = new BABYLON.Vector3(posKeeper -= 12, -1.27, 6.35);
+				}
+
+				newBooth.checkCollisions = true;
+				for (var i = 0; i <= 72; i++) {
+					newBooth.instances[i].checkCollisions = true;
+					//The following commented lines do work:
+					//checkCollisions must be set to false for every nonvisible booth.
+					//newBooth.instances[0].isVisible = false;
+					//newBooth.instances[0].checkCollisions = false;
+					
+					//What I presume it'll be similar to:
+					//newBooth.instances[i].isVisible = {{booths.i.visibility}};
+					//newBooth.instances[i].texture = {{ expo.booth1texture }};
+					//newBooth.instances[i].checkCollisions = {{booths."B" + (i+1).collisions}};
+					//etc. I'm not entirely sure how django data importing and the JSON stuff works though, so it probably isn't that simple.
+					
+				}
+				//What Ian wrote to rewrite syntax into something that works, this is an idea!:
+				//B1.visibility = {{booths.B1.visibility}}
+				//B1.texture= {{booths.B1.texture}}
+				//B2.visibility ={{}}
+				//B2.texture = {{}}
+        	}
+        
+            // Move the light with the camera
+            scene.registerBeforeRender(function () {
+                light.position = camera.position;
+            });
+	        scene.executeWhenReady(function () {
+	            //canvas.style.opacity = 1;
+	            if (camera) {
+		                camera.attachControl(canvas);
+
+		                if (camera.keysUp) {
+		                    camera.keysUp.push(90); // Z
+		                    camera.keysUp.push(87); // W
+		                    camera.keysDown.push(83); // S
+		                    camera.keysLeft.push(65); // A
+		                    camera.keysLeft.push(81); // Q
+		                    camera.keysRight.push(69); // E
+		                    camera.keysRight.push(68); // D
+		                }
+
+}
+	        	});
+        	
+        	assetsManager.onFinish = function (tasks) {
+        		engine.runRenderLoop(function () {
+        			scene.render();
+        		});
+        	};
+        	
+        	assetsManager.load();
+        
+            return scene;
+        }
+        
+        var scene = createScene()
+
+        engine.runRenderLoop(function () {
+            if (scene) {
+                scene.render();
+            }
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

@@ -1,8 +1,8 @@
 {
 	"version": 3,
-	"file": "../../../home/alex/djstore/django-shop/example/shop/static/shop/css/navbar.css",
+	"file": "../../../home/gerald/djstore/django-shop/example/shop/static/shop/css/navbar.css",
 	"sources": [
-		"../../../home/alex/djstore/django-shop/example/shop/static/shop/css/navbar.scss"
+		"../../../home/gerald/djstore/django-shop/example/shop/static/shop/css/navbar.scss"
 	],
 	"names": [],
 	"mappings": "AAAA,AACC,WADU,CACV,oBAAoB,CAAC;EACpB,OAAO,EAAE,SAAS,GAIlB;EANF,AAGE,WAHS,CACV,oBAAoB,CAEnB,IAAI,CAAC;IACJ,aAAa,EAAE,IAAI,GACnB"

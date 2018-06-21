@@ -111,5 +111,3 @@ pyvenv.cfg
 lib64
 nohup.out
 
-workdir/static/
-workdir/
